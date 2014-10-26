@@ -40,12 +40,12 @@
 
             container = new WindsorContainer();
             container.Register(
-                Component.For<WalletController>().LifestylePerWebRequest(),
+                Component.For<WalletController>().LifestyleTransient(),
                 Component.For<IRepository<Account>>().ImplementedBy<AccountRepository>().LifestylePerWebRequest(),
                 Component.For<IDocumentSession>().UsingFactoryMethod(
                     () =>
                         {
-                            var docStore = new EmbeddableDocumentStore() { DataDirectory = "Data" };
+                            var docStore = new DocumentStore() { Url = "http://localhost:8080/", DefaultDatabase = "Wallet" };
                             docStore.Initialize();
                             return docStore.OpenSession();
                         }).LifestylePerWebRequest());

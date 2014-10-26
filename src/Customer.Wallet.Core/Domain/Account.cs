@@ -29,6 +29,11 @@
 
         public Account Withdraw(decimal amount)
         {
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException("amount");
+            }
+
             return new Account(this.Id, this.UserId, this.Balance - amount);
         }
 

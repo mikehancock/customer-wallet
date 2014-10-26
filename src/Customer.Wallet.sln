@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.Wallet.Web", "Customer.Wallet.Web\Customer.Wallet.Web.csproj", "{D29EFF64-3ED8-436D-82EF-6B7492207DEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.Wallet.UnitTests", "Customer.Wallet.UnitTests\Customer.Wallet.UnitTests.csproj", "{C185170E-278A-419E-B5F6-E3E15A9F28EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.Wallet.Tests", "Customer.Wallet.Tests\Customer.Wallet.Tests.csproj", "{C185170E-278A-419E-B5F6-E3E15A9F28EF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.Wallet.Core", "Customer.Wallet.Core\Customer.Wallet.Core.csproj", "{CCE68690-3F23-4DC5-B25A-68D8E1B6D221}"
 EndProject

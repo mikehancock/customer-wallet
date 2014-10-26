@@ -19,7 +19,14 @@
 
         public decimal Get(int id)
         {
-            return this.store.FindOne(account => account.Id == id).Balance;
+            var account = this.store.Get(id);
+
+            if (account == null)
+            {
+                throw new ArgumentOutOfRangeException("id");
+            }
+
+            return account.Balance;
         }
 
         public HttpResponseMessage Post([FromBody]int userId)
@@ -45,7 +52,7 @@
         [HttpPut]
         public void Withdraw(int id, [FromBody] decimal amount)
         {
-            var account = this.store.FindOne(a => a.Id == id);
+            var account = this.store.Get(id);
 
             if (account == null)
             {
@@ -60,7 +67,7 @@
         [HttpPut]
         public void Deposit(int id, [FromBody] decimal amount)
         {
-            var account = this.store.FindOne(a => a.Id == id);
+            var account = this.store.Get(id);
 
             if (account == null)
             {
@@ -75,7 +82,7 @@
         [HttpDelete]
         public void Delete(int id)
         {
-            var account = this.store.FindOne(a => a.Id == id);
+            var account = this.store.Get(id);
 
             if (account == null)
             {

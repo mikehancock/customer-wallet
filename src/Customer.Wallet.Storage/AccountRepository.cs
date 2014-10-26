@@ -19,19 +19,9 @@
             this.session = session;
         }
 
-        public Account FindOne(Expression<Func<Account, bool>> predicate)
+        public Account Get(int id)
         {
-            return this.session.Query<Account>().Where(predicate).FirstOrDefault();
-        }
-
-        public IQueryable<Account> FindBy(Expression<Func<Account, bool>> predicate)
-        {
-            return this.session.Query<Account>().Where(predicate);
-        }
-
-        public IEnumerable<Account> FindAll()
-        {
-            return this.session.Query<Account>();
+            return this.session.Load<Account>(id);
         }
 
         public bool Exists(Expression<Func<Account, bool>> predicate)
@@ -48,7 +38,8 @@
 
         public void Update(Account aggregateRoot)
         {
-            throw new NotImplementedException();
+            this.session.Store(aggregateRoot);
+            this.session.SaveChanges();
         }
 
         public void Delete(Account aggregateRoot)
