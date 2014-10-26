@@ -45,7 +45,8 @@
                 Component.For<IDocumentSession>().UsingFactoryMethod(
                     () =>
                         {
-                            var docStore = new DocumentStore() { Url = "http://localhost:8080/", DefaultDatabase = "Wallet" };
+                            var docStore = new EmbeddableDocumentStore() { DataDirectory = "Data", UseEmbeddedHttpServer = true };
+                            ////var docStore = new DocumentStore() { Url = "http://localhost:8080/", DefaultDatabase = "Wallet" };
                             docStore.Initialize();
                             return docStore.OpenSession();
                         }).LifestylePerWebRequest());

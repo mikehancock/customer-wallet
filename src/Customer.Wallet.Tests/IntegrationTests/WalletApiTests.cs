@@ -31,6 +31,7 @@
             }
             finally
             {
+                // For some reason delete isn't working, not sure   what is wrong as this should just be standard route - ran out time trying to figure this one out
                 this.jsonClient.Delete(request);
             }
         }
