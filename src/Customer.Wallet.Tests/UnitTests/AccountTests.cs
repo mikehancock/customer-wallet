@@ -40,9 +40,9 @@
         {
             var account = new Account(0, 1, 3m);
 
-            var actual = account.Withdraw(2m);
+            account.Withdraw(2m);
 
-            Assert.That(actual.Balance, Is.EqualTo(1m));
+            Assert.That(account.Balance, Is.EqualTo(1m));
         }
 
         [Test]
@@ -50,9 +50,9 @@
         {
             var account = new Account(0, 1, 3m);
 
-            var actual = account.Withdraw(0m);
+            account.Withdraw(0m);
 
-            Assert.That(actual.Balance, Is.EqualTo(3m));
+            Assert.That(account.Balance, Is.EqualTo(3m));
         }
 
         [Test]
@@ -68,9 +68,9 @@
         {
             var account = new Account(0, 1, 3m);
 
-            var actual = account.Deposit(1m);
+            account.Deposit(1m);
 
-            Assert.That(actual.Balance, Is.EqualTo(4m));
+            Assert.That(account.Balance, Is.EqualTo(4m));
         }
 
         [Test]

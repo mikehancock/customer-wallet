@@ -7,14 +7,10 @@
         public Account(int id, int userId, decimal balance)
         {
             if (userId <= 0)
-            {
                 throw new ArgumentOutOfRangeException("userId");
-            }
 
             if (balance < 0)
-            {
                 throw new InvalidOperationException("balance cannot be negative");
-            }
 
             this.Id = id;
             this.UserId = userId;
@@ -27,24 +23,27 @@
 
         public decimal Balance { get; private set; }
 
-        public Account Withdraw(decimal amount)
+        public void Withdraw(decimal amount)
         {
             if (amount < 0)
-            {
                 throw new ArgumentOutOfRangeException("amount");
-            }
 
-            return new Account(this.Id, this.UserId, this.Balance - amount);
+            if (amount > this.Balance)
+                throw new InvalidOperationException(string.Format("withdrawal amount {0} exceeds balance {1}", amount, this.Balance));
+
+            // I would prefer to return a new instance of Account and make this immutable, but that cuases issues with Raven updates
+            this.Balance -= amount;
         }
 
-        public Account Deposit(decimal amount)
+        public void Deposit(decimal amount)
         {
             if (amount < 0)
             {
                 throw new ArgumentOutOfRangeException("amount");
             }
 
-            return new Account(this.Id, this.UserId, this.Balance + amount);
+            // I would prefer to return a new instance of Account and make this immutable, but that cuases issues with Raven updates
+            this.Balance += amount;
         }
     }
 }

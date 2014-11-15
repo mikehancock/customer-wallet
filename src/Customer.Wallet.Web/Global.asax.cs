@@ -12,7 +12,7 @@
 
     using Customer.Wallet.Core;
     using Customer.Wallet.Core.Domain;
-    using Customer.Wallet.Storage.Repositories;
+    using Customer.Wallet.Storage;
     using Customer.Wallet.Web.Controllers;
     using Customer.Wallet.Web.IoC;
 
@@ -45,8 +45,8 @@
                 Component.For<IDocumentSession>().UsingFactoryMethod(
                     () =>
                         {
-                            var docStore = new EmbeddableDocumentStore() { DataDirectory = "Data", UseEmbeddedHttpServer = true };
-                            ////var docStore = new DocumentStore() { Url = "http://localhost:8080/", DefaultDatabase = "Wallet" };
+                            ////var docStore = new EmbeddableDocumentStore() { DataDirectory = "Data", UseEmbeddedHttpServer = true };
+                            var docStore = new DocumentStore() { Url = "http://localhost:8080/", DefaultDatabase = "Wallet" };
                             docStore.Initialize();
                             return docStore.OpenSession();
                         }).LifestylePerWebRequest());

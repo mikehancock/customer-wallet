@@ -3,6 +3,7 @@
     using System;
     using System.Linq.Expressions;
     using System.Net.Http;
+    using System.Net.Http.Formatting;
     using System.Web.Http;
     using System.Web.Http.Controllers;
     using System.Web.Http.Hosting;
@@ -15,6 +16,8 @@
     using FakeItEasy;
 
     using NUnit.Framework;
+
+    using RestSharp;
 
     [TestFixture]
     public class WalletControllerTests
@@ -91,7 +94,10 @@
 
                 var actual = this.controller.Get(accountId);
 
-                Assert.That(actual, Is.EqualTo(2m));
+                Assert.That(actual.Content, Is.InstanceOf<ObjectContent<Account>>());
+                Assert.That(((Account)((ObjectContent<Account>)actual.Content).Value).Id, Is.EqualTo(1));
+                Assert.That(((Account)((ObjectContent<Account>)actual.Content).Value).UserId, Is.EqualTo(1));
+                Assert.That(((Account)((ObjectContent<Account>)actual.Content).Value).Balance, Is.EqualTo(2m));
             }
 
             [Test]

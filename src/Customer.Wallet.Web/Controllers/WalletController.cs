@@ -17,7 +17,7 @@
             this.store = store;
         }
 
-        public decimal Get(int id)
+        public HttpResponseMessage Get(int id)
         {
             var account = this.store.Get(id);
 
@@ -26,7 +26,7 @@
                 throw new ArgumentOutOfRangeException("id");
             }
 
-            return account.Balance;
+            return Request.CreateResponse(HttpStatusCode.Found, account);
         }
 
         public HttpResponseMessage Post([FromBody]int userId)
@@ -42,14 +42,11 @@
 
             this.store.Create(newAccount);
 
-            var response = Request.CreateResponse(HttpStatusCode.Created, newAccount);
-
-            var uri = Url.Link("DefaultApi", new { id = newAccount.Id });
-            response.Headers.Location = new Uri(uri);
-            return response;
+            return Request.CreateResponse(HttpStatusCode.Created, newAccount.Id);
         }
 
         [HttpPut]
+        [Route("api/Wallet/{id:int}/Withdraw")]
         public void Withdraw(int id, [FromBody] decimal amount)
         {
             var account = this.store.Get(id);
@@ -59,12 +56,13 @@
                 throw new ArgumentOutOfRangeException("id");
             }
 
-            account = account.Withdraw(amount);
+            account.Withdraw(amount);
 
             this.store.Update(account);
         }
 
         [HttpPut]
+        [Route("api/Wallet/{id:int}/Deposit")]
         public void Deposit(int id, [FromBody] decimal amount)
         {
             var account = this.store.Get(id);
@@ -74,7 +72,7 @@
                 throw new ArgumentOutOfRangeException("id");
             }
 
-            account = account.Deposit(amount);
+            account.Deposit(amount);
 
             this.store.Update(account);
         }

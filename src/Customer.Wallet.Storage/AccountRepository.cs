@@ -1,7 +1,6 @@
-﻿namespace Customer.Wallet.Storage.Repositories
+﻿namespace Customer.Wallet.Storage
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
 
@@ -17,11 +16,13 @@
         public AccountRepository(IDocumentSession session)
         {
             this.session = session;
+            this.session.Advanced.UseOptimisticConcurrency = true;
         }
 
         public Account Get(int id)
         {
-            return this.session.Load<Account>(id);
+            var account = this.session.Load<Account>(id);
+            return account;
         }
 
         public bool Exists(Expression<Func<Account, bool>> predicate)
@@ -38,7 +39,6 @@
 
         public void Update(Account aggregateRoot)
         {
-            this.session.Store(aggregateRoot);
             this.session.SaveChanges();
         }
 
